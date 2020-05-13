@@ -9,10 +9,27 @@ public class FlashCardGame {
 
     private final HashMap<Integer, Question> questions = new HashMap<>();
     private final Logger logger = new Logger();
+    private String export = "NONE";
 
     public void start(){
         menu();
         logger.logAndPrintLn("Bye bye!");
+        if (!export.equals("NONE")) writeToFile(export);
+    }
+
+    public void parseArgs(String[] args){
+        for (int i = 0; i < args.length; i++){
+            switch (args[i]){
+                case "-import": {
+                    readFromFile(args[i+1]);
+                    break;
+                }
+                case "-export": {
+                    this.export = args[i+1];
+                    break;
+                }
+            }
+        }
     }
 
     private void menu(){
